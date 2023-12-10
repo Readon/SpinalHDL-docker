@@ -106,6 +106,9 @@ FROM base AS run
 RUN pip install cocotb cocotb-test click && \
     pip cache purge
 
+ARG DEPS="gtkwave"
+RUN apt-get install -y --no-install-recommends $DEPS
+
 # Add repos and install sbt 
 RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" \
         | gpg2 --dearmour -o /usr/share/keyrings/sdb-keyring.gpg \
