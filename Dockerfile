@@ -118,9 +118,12 @@ ARG MILL_VERSION="1.1.0"
 RUN \
   curl -L -o /usr/local/bin/mill https://repo1.maven.org/maven2/com/lihaoyi/mill-dist/$MILL_VERSION/mill-dist-$MILL_VERSION-mill.sh && \
   chmod +x /usr/local/bin/mill && \
-  touch build.sc && \
-  mill -i resolve _ && \
-  rm build.sc
+  mkdir -p /tmp/mill-build && \
+    cd /tmp/mill-build && \
+    touch build.sc && \
+    mill -i resolve _ && \
+    cd / && \
+    rm -rf /tmp/mill-build
 
 FROM base AS run
 
